@@ -3,7 +3,7 @@ package TopInterview150;
 import java.util.HashMap;
 import java.util.Map;
 
-class Solutions {
+class ArrayString {
   // 88. Merge Sorted Aarry
   public void merge(int[] nums1, int m, int[] nums2, int n) {
     int mIndex = m - 1;
@@ -144,5 +144,60 @@ class Solutions {
         nums[i] = part1[i - k];
       }
     }
+  }
+
+  // 121. Best Time to Buy and Sell Stock
+  public int maxProfit1(int[] prices) {
+    int maxProfit = 0;
+    int minPrice = Integer.MAX_VALUE;
+    for (int i = 0; i < prices.length; i++) {
+      if (prices[i] < minPrice) {
+        minPrice = prices[i];
+      } else {
+        maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+      }
+    }
+
+    return maxProfit;
+  }
+
+  // 122. Best Time to Buy and Sell Stock II
+  public int maxProfit2(int[] prices) {
+    int profit = 0;
+    for (int i = 0; i < prices.length - 1; i++) {
+      if (prices[i + 1] > prices[i]) {
+        profit += (prices[i + 1] - prices[i]);
+      }
+    }
+    return profit;
+  }
+
+  // 55. Jump Game
+  public boolean canJump(int[] nums) {
+    int maxLength = nums[0];
+    for (int i = 0; i < nums.length; i++) {
+      if (i > maxLength) {
+        return false;
+      }
+      maxLength = Integer.max(nums[i] + i, maxLength);
+      if (maxLength >= nums.length - 1) {
+        return true;
+      }
+    }
+    return true;
+  }
+
+  public static int jump(int[] nums) {
+    int jumps = 0;
+    int currentJumpEnd = 0;
+    int farthest = 0;
+    for (int i = 0; i < nums.length - 1; i++) {
+      farthest = Math.max(farthest, i + nums[i]);
+      if (i == currentJumpEnd) {
+        jumps++;
+        currentJumpEnd = farthest;
+      }
+    }
+    return jumps;
   }
 }
