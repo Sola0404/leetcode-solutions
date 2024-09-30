@@ -270,4 +270,47 @@ class ArrayString {
 
     return sb.toString();
   }
+
+  // 151. Reverse Words in a String
+  public static String reverseWords(String s) {
+    String[] strings = s.trim().split(" ");
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = strings.length - 1; i >= 0; i--) {
+      strings[i] = strings[i].trim();
+      if (strings[i] == "")
+        continue;
+      sb.append(strings[i]);
+      if (i != 0) {
+        sb.append(" ");
+      }
+    }
+    return sb.toString();
+  }
+
+  // 28. Find the Index of the First Occurrence in a String
+  public static int strStr(String haystack, String needle) {
+    int needleIndex = 0;
+    int firstIndex = -1;
+
+    for (int i = 0; i < haystack.length(); i++) {
+      if (haystack.charAt(i) == needle.charAt(needleIndex)) {
+        needleIndex++;
+        if (needleIndex == needle.length()) {
+          firstIndex = i - needleIndex + 1;
+          return firstIndex;
+        }
+      } else {
+        if (needleIndex != 0) {
+          i -= needleIndex;
+        }
+        needleIndex = 0;
+      }
+    }
+    return firstIndex;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(strStr("leetcode", "leeto"));
+  }
 }
