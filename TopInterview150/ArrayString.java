@@ -200,4 +200,74 @@ class ArrayString {
     }
     return jumps;
   }
+
+  // 13. Roman to Integer
+  public int romanToInt(String s) {
+    Map<Character, Integer> map = new HashMap<>();
+    map.put('I', 1);
+    map.put('V', 5);
+    map.put('X', 10);
+    map.put('L', 50);
+    map.put('C', 100);
+    map.put('D', 500);
+    map.put('M', 1000);
+
+    int result = 0;
+    char[] chars = s.toCharArray();
+    for (int i = 0; i < chars.length - 1; i++) {
+      int currentValue = map.get(chars[i]);
+      int nextValue = map.get(chars[i + 1]);
+      if (currentValue >= nextValue) {
+        result += currentValue;
+      } else {
+        result -= currentValue;
+      }
+    }
+    result += map.get(chars[chars.length - 1]);
+    return result;
+  }
+
+  // 12. Integer to Roman
+  public String intToRoman(int num) {
+    int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+    String[] symbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < values.length; i++) {
+      while (num >= values[i]) {
+        num -= values[i];
+        sb.append(symbols[i]);
+      }
+    }
+    return sb.toString();
+  }
+
+  // 58. Length of Last Word
+  public int lengthOfLastWord(String s) {
+    String[] strings = s.split(" ");
+    return strings[strings.length - 1].trim().length();
+  }
+
+  // 14. Longest Common Prefix
+  public String longestCommonPrefix(String[] strs) {
+    StringBuilder sb = new StringBuilder();
+
+    int minLength = strs[0].length();
+    for (String s : strs) {
+      if (s.length() < minLength) {
+        minLength = s.length();
+      }
+    }
+
+    for (int i = 0; i < minLength; i++) {
+      char shouldBe = strs[0].charAt(i);
+      for (String s : strs) {
+        if (s.charAt(i) != shouldBe)
+          return sb.toString();
+      }
+      sb.append(shouldBe);
+    }
+
+    return sb.toString();
+  }
 }
