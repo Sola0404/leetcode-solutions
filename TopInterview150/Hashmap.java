@@ -1,6 +1,9 @@
 package TopInterview150;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Hashmap {
@@ -58,5 +61,42 @@ public class Hashmap {
     }
 
     return true;
+  }
+
+  // 242. Valid Anagram
+  public boolean isAnagram(String s, String t) {
+    if (s.length() != t.length())
+      return false;
+
+    int[] chars = new int[26];
+
+    for (char c : s.toCharArray()) {
+      chars[c - 'a']++;
+    }
+
+    for (char c : t.toCharArray()) {
+      if (chars[c - 'a'] == 0)
+        return false;
+      chars[c - 'a']--;
+    }
+    return true;
+  }
+
+  // 49. Group Anagrams
+  public List<List<String>> groupAnagrams(String[] strs) {
+    Map<String, List<String>> map = new HashMap<>();
+
+    for (String s : strs) {
+      char[] chars = s.toCharArray();
+      Arrays.sort(chars);
+      String sortedString = new String(chars);
+
+      if (!map.containsKey(sortedString))
+        map.put(sortedString, new ArrayList<>());
+
+      map.get(sortedString).add(s);
+    }
+
+    return new ArrayList<>(map.values());
   }
 }
