@@ -3,8 +3,10 @@ package TopInterview150;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Hashmap {
   // 383. Ransom Note
@@ -111,5 +113,30 @@ public class Hashmap {
       map.put(nums[i], i);
     }
     return new int[] {};
+  }
+
+  // 202. Happy Number
+  public boolean isHappy(int n) {
+    Set<Integer> visited = new HashSet<>();
+
+    while (!visited.contains(n)) {
+      visited.add(n);
+      n = getNextNum(n);
+      if (n == 1) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private int getNextNum(int n) {
+    int output = 0;
+    while (n > 0) {
+      int digit = n % 10;
+      output += digit * digit;
+      n /= 10;
+    }
+    return output;
   }
 }
