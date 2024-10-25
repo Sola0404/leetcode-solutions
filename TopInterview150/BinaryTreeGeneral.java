@@ -68,4 +68,18 @@ public class BinaryTreeGeneral {
       return false;
     return t1.val == t2.val && isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
   }
+
+  // 112. Path Sum
+  public boolean hasPathSum(TreeNode root, int targetSum) {
+    if (root == null)
+      return false;
+
+    if (root.left == null && root.right == null)
+      return root.val == targetSum;
+
+    boolean leftHasPathSum = hasPathSum(root.left, targetSum - root.val);
+    boolean rightHasPathSum = hasPathSum(root.right, targetSum - root.val);
+
+    return leftHasPathSum || rightHasPathSum;
+  }
 }
